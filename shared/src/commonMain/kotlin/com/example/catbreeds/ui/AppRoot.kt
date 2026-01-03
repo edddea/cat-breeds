@@ -45,7 +45,7 @@ fun AppRoot() {
     }
 
     Surface(Modifier.fillMaxSize()) {
-        when (val s = screen) {
+        when (val currentScreen = screen) {
             Screen.Login -> LoginScreen(
                 onLoggedIn = { screen = Screen.Breeds }
             )
@@ -65,9 +65,9 @@ fun AppRoot() {
             )
 
             is Screen.Detail -> BreedDetailScreen(
-                breedId = s.id,
+                breedId = currentScreen.id,
                 onBack = {
-                    screen = if (s.fromFavorites) Screen.Favorites else Screen.Breeds
+                    screen = if (currentScreen.fromFavorites) Screen.Favorites else Screen.Breeds
                 }
             )
         }

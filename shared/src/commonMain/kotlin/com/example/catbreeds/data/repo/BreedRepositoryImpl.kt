@@ -42,8 +42,11 @@ class BreedRepositoryImpl(
         return flow {
             emit(Result.success(listFlow.first()))
             val refresh = refreshPage(page, pageSize)
-            if (refresh.isFailure) emit(Result.failure(refresh.exceptionOrNull()!!))
-            else emit(Result.success(listFlow.first()))
+            if (refresh.isFailure) {
+                emit(Result.failure(refresh.exceptionOrNull() ?: Exception("Unknown error")))
+            } else {
+                emit(Result.success(listFlow.first()))
+            }
         }
     }
 
@@ -59,7 +62,7 @@ class BreedRepositoryImpl(
                     origin = dto.origin,
                     temperament = dto.temperament,
                     life_span = dto.life_span,
-                    image_url = dto.image?.url,
+                    image_url = "https://cdn2.thecatapi.com/images/${dto.reference_image_id}.jpg",
                     updated_at = now
                 )
             }

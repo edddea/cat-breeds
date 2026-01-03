@@ -5,6 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class TheCatApi(
@@ -35,10 +36,12 @@ data class BreedDto(
     val origin: String? = null,
     val temperament: String? = null,
     val life_span: String? = null,
+    val reference_image_id: String? = null,
     val image: ImageDto? = null,
 )
 
 @Serializable
 data class ImageDto(
+    val id: String? = null,
     val url: String? = null
 )

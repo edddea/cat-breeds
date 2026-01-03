@@ -4,7 +4,9 @@ import com.example.catbreeds.domain.model.Breed
 import com.example.catbreeds.domain.usecase.GetBreedsPageUseCase
 import com.example.catbreeds.domain.usecase.RefreshBreedsPageUseCase
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class BreedListUiState(
