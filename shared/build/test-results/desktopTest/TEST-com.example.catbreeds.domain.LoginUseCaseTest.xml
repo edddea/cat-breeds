@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.catbreeds.domain.LoginUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-01-03T05:17:34" hostname="Mac-mini-de-Edgar.local" time="0.005">
+  <properties/>
+  <testcase name="invalid username fails[desktop]" classname="com.example.catbreeds.domain.LoginUseCaseTest" time="0.001"/>
+  <testcase name="valid credentials succeed[desktop]" classname="com.example.catbreeds.domain.LoginUseCaseTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

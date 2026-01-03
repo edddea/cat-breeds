@@ -1,0 +1,64 @@
+CREATE TABLE breeds_cache (
+  id TEXT NOT NULL PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  origin TEXT,
+  temperament TEXT,
+  life_span TEXT,
+  image_url TEXT,
+  updated_at INTEGER NOT NULL
+);
+
+selectPage:
+SELECT * FROM breeds_cache
+ORDER BY name
+LIMIT ? OFFSET ?;
+
+selectById:
+SELECT * FROM breeds_cache WHERE id = ?;
+
+upsertBreed:
+INSERT OR REPLACE INTO breeds_cache(
+  id, name, description, origin, temperament, life_span, image_url, updated_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAllBreeds:
+DELETE FROM breeds_cache;
+
+CREATE TABLE favorites (
+  breed_id TEXT NOT NULL PRIMARY KEY,
+  created_at INTEGER NOT NULL
+);
+
+selectFavoriteIds:
+SELECT breed_id FROM favorites;
+
+isFavorite:
+SELECT EXISTS(SELECT 1 FROM favorites WHERE breed_id = ?) AS exist;
+
+addFavorite:
+INSERT OR REPLACE INTO favorites(breed_id, created_at) VALUES (?, ?);
+
+removeFavorite:
+DELETE FROM favorites WHERE breed_id = ?;
+
+selectFavorites:
+SELECT b.* FROM breeds_cache b
+JOIN favorites f ON f.breed_id = b.id
+ORDER BY f.created_at DESC;
+
+CREATE TABLE session (
+  token TEXT NOT NULL,
+  username TEXT NOT NULL,
+  expires_at INTEGER NOT NULL
+);
+
+getSession:
+SELECT * FROM session LIMIT 1;
+
+saveSession:
+INSERT OR REPLACE INTO session(token, username, expires_at)
+VALUES (?, ?, ?);
+
+clearSession:
+DELETE FROM session;

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.catbreeds.data.TheCatApiTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-03T05:19:57" hostname="Mac-mini-de-Edgar.local" time="0.053">
+  <properties/>
+  <testcase name="parses breeds response" classname="com.example.catbreeds.data.TheCatApiTest" time="0.053"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
