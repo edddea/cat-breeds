@@ -10,13 +10,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.catbreeds.domain.definitions.Constants.ABOUT_LABEL
+import com.example.catbreeds.domain.definitions.Constants.CAT_ICON_LABEL
+import com.example.catbreeds.domain.definitions.Constants.FAVORITE_FILLED_LABEL
+import com.example.catbreeds.domain.definitions.Constants.FAVORITE_UNFILLED_LABEL
+import com.example.catbreeds.domain.definitions.Constants.LIFE_SPAN_LABEL
+import com.example.catbreeds.domain.definitions.Constants.ORIGIN_LABEL
+import com.example.catbreeds.domain.definitions.Constants.TEMPERAMENT_LABEL
 import com.example.catbreeds.presentation.BreedDetailViewModel
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -47,7 +56,12 @@ fun BreedDetailScreen(
             TopAppBar(
                 title = { Text(state.breed?.name ?: "Details") },
                 navigationIcon = {
-                    TextButton(onClick = onBack) { Text("Back") }
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
             )
         }
@@ -83,7 +97,7 @@ fun BreedDetailScreen(
                                     modifier = Modifier.fillMaxSize()
                                 )
                             } else {
-                                Text("🐱", style = MaterialTheme.typography.displayMedium)
+                                Text(CAT_ICON_LABEL, style = MaterialTheme.typography.displayMedium)
                             }
                         }
 
@@ -91,16 +105,16 @@ fun BreedDetailScreen(
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                "About",
+                                ABOUT_LABEL,
                                 style = MaterialTheme.typography.titleLarge,
                                 modifier = Modifier.weight(1f)
                             )
                             IconButton(onClick = { vm.onToggleFavorite() }) {
                                 Text(
                                     if (currentBreed?.isFavorite == true) {
-                                        "♥"
+                                        FAVORITE_FILLED_LABEL
                                     } else {
-                                        "♡"
+                                        FAVORITE_UNFILLED_LABEL
                                     },
                                     style = MaterialTheme.typography.headlineMedium
                                 )
@@ -113,9 +127,9 @@ fun BreedDetailScreen(
                         )
 
                         Spacer(Modifier.height(12.dp))
-                        MetaRow("Origin", currentBreed?.origin ?: "")
-                        MetaRow("Temperament", currentBreed?.temperament ?: "")
-                        MetaRow("Life span", currentBreed?.lifeSpan ?: "")
+                        MetaRow(ORIGIN_LABEL, currentBreed?.origin ?: "")
+                        MetaRow(TEMPERAMENT_LABEL, currentBreed?.temperament ?: "")
+                        MetaRow(LIFE_SPAN_LABEL, currentBreed?.lifeSpan ?: "")
                     }
                 }
             }

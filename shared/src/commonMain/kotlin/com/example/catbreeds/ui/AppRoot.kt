@@ -22,6 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.example.catbreeds.domain.definitions.Constants.BREEDS_LABEL
+import com.example.catbreeds.domain.definitions.Constants.FAVORITES_LABEL
 import com.example.catbreeds.presentation.SessionViewModel
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -93,8 +95,8 @@ private fun MainScaffold(
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
             TabRow(selectedTabIndex = tab) {
-                Tab(selected = tab == 0, onClick = { tab = 0 }, text = { Text("Breeds") })
-                Tab(selected = tab == 1, onClick = { tab = 1 }, text = { Text("Favorites") })
+                Tab(selected = tab == 0, onClick = { tab = 0 }, text = { Text(BREEDS_LABEL) })
+                Tab(selected = tab == 1, onClick = { tab = 1 }, text = { Text(FAVORITES_LABEL) })
                 Spacer(Modifier.weight(1f))
                 val cs = rememberCoroutineScope()
                 var loggingOut by remember { mutableStateOf(false) }

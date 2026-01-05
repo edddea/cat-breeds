@@ -19,7 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.catbreeds.domain.definitions.Constants.CREDENTIALS_RULES
+import com.example.catbreeds.domain.definitions.Constants.PASSWORD_LABEL
+import com.example.catbreeds.domain.definitions.Constants.SIGN_IN_LABEL
+import com.example.catbreeds.domain.definitions.Constants.SIGN_IN_PROGRESS_LABEL
+import com.example.catbreeds.domain.definitions.Constants.UNKNOWN_ERROR
+import com.example.catbreeds.domain.definitions.Constants.USERNAME_LABEL
 import com.example.catbreeds.presentation.LoginViewModel
+import kotlinx.coroutines.delay
 import org.koin.core.component.KoinComponent
 
 @Composable
@@ -36,6 +43,13 @@ fun LoginScreen(
         }
     }
 
+    LaunchedEffect(state.isLoading) {
+        if (state.isLoading) {
+            delay(3000L)
+            vm.onResetLoading()
+        }
+    }
+
     Column(
         Modifier.fillMaxSize().padding(24.dp),
         verticalArrangement = Arrangement.Center
@@ -48,7 +62,7 @@ fun LoginScreen(
             onValueChange = {
                 vm.onUsernameChange(it)
             },
-            label = { Text("Username") },
+            label = { Text(USERNAME_LABEL) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -58,7 +72,7 @@ fun LoginScreen(
             onValueChange = {
                 vm.onPasswordChange(it)
             },
-            label = { Text("Password") },
+            label = { Text(PASSWORD_LABEL) },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -66,7 +80,7 @@ fun LoginScreen(
 
         Spacer(Modifier.height(12.dp))
         if (state.error != null) {
-            Text(state.error!!, color = MaterialTheme.colorScheme.error)
+            Text(state.error ?: UNKNOWN_ERROR, color = MaterialTheme.colorScheme.error)
             Spacer(Modifier.height(8.dp))
         }
 
@@ -77,16 +91,16 @@ fun LoginScreen(
         ) {
             Text(
                 if (state.isLoading) {
-                    "Signing in…"
+                    SIGN_IN_PROGRESS_LABEL
                 } else {
-                    "Sign in"
+                    SIGN_IN_LABEL
                 }
             )
         }
 
         Spacer(Modifier.height(12.dp))
         Text(
-            "Validation: username ≥ 4 (letters/digits/._-), password ≥ 6 with letters + digits.",
+            CREDENTIALS_RULES,
             style = MaterialTheme.typography.bodySmall
         )
     }
@@ -99,3 +113,4 @@ private inline fun <reified T : Any> rememberKoin(): T {
         koinComponent.getKoin().get<T>()
     }
 }
+

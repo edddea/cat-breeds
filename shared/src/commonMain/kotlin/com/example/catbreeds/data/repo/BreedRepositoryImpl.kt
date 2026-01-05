@@ -7,6 +7,7 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.example.catbreeds.data.platform.currentTimeMillis
 import com.example.catbreeds.data.remote.TheCatApi
 import com.example.catbreeds.db.CatDatabase
+import com.example.catbreeds.domain.definitions.Constants.BASE_IMAGES_URL
 import com.example.catbreeds.domain.model.Breed
 import com.example.catbreeds.domain.repo.BreedRepository
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +63,7 @@ class BreedRepositoryImpl(
                     origin = dto.origin,
                     temperament = dto.temperament,
                     life_span = dto.life_span,
-                    image_url = "https://cdn2.thecatapi.com/images/${dto.reference_image_id}.jpg",
+                    image_url = "${BASE_IMAGES_URL}/${dto.reference_image_id}.jpg",
                     updated_at = now
                 )
             }

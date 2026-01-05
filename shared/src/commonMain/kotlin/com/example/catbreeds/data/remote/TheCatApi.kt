@@ -1,11 +1,11 @@
 package com.example.catbreeds.data.remote
 
+import com.example.catbreeds.domain.definitions.Constants.BASE_URL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class TheCatApi(
@@ -16,7 +16,7 @@ class TheCatApi(
         // TheCatAPI supports pagination on /v1/breeds using page + limit.
         // If key is missing, request still often works but may be rate limited.
         val key = apiKeyProvider.apiKeyOrNull()
-        return client.get("https://api.thecatapi.com/v1/breeds") {
+        return client.get("${BASE_URL}/v1/breeds") {
             parameter("page", page)
             parameter("limit", limit)
             if (!key.isNullOrBlank()) header("x-api-key", key)

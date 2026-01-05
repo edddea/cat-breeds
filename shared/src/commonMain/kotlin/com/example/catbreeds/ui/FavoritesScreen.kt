@@ -18,6 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.catbreeds.domain.definitions.Constants.FAVORITES_EMPTY_STATE
+import com.example.catbreeds.domain.definitions.Constants.FAVORITE_FILLED_LABEL
 import com.example.catbreeds.presentation.FavoritesViewModel
 import org.koin.core.component.KoinComponent
 
@@ -32,9 +34,11 @@ fun FavoritesScreen(
         state.isLoading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
+
         state.items.isEmpty() -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("No favorites yet. Tap ♥ on a breed.")
+            Text(FAVORITES_EMPTY_STATE)
         }
+
         else -> LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(bottom = 24.dp)
@@ -45,7 +49,7 @@ fun FavoritesScreen(
                     supportingContent = { Text(breed.shortDescription, maxLines = 2) },
                     trailingContent = {
                         IconButton(onClick = { vm.remove(breed.id) }) {
-                            Text("♥")
+                            Text(FAVORITE_FILLED_LABEL)
                         }
                     },
                     modifier = Modifier.clickable { onSelectBreed(breed.id) }

@@ -4,7 +4,8 @@ import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.example.catbreeds.data.repo.AuthRepositoryImpl
 import com.example.catbreeds.db.CatDatabase
 import com.example.catbreeds.domain.usecase.LoginUseCase
-import kotlin.test.Test
+import kotlinx.coroutines.test.runTest
+import org.junit.Test
 import kotlin.test.assertTrue
 
 class LoginUseCaseTest {
@@ -16,21 +17,44 @@ class LoginUseCaseTest {
     }
 
     @Test
-    fun `invalid username fails`() = kotlinx.coroutines.test.runTest {
-        //
+    fun `invalid username fails`() = runTest {
+        // GIVEN
         val repo = AuthRepositoryImpl(db())
         val usecase = LoginUseCase(repo)
 
+
+        // WHEN
         val res = usecase("a!", "pass123")
+
+        // THEN
         assertTrue(res.isFailure)
     }
 
     @Test
-    fun `valid credentials succeed`() = kotlinx.coroutines.test.runTest {
+    fun `valid credentials succeed`() = runTest {
+        // GIVEN
         val repo = AuthRepositoryImpl(db())
         val usecase = LoginUseCase(repo)
 
+
+        // WHEN
         val res = usecase("edgar_rod", "pass123")
+
+        // THEN
         assertTrue(res.isSuccess)
+    }
+
+    @Test
+    fun `invalid password login not allowed`() = runTest {
+        // GIVEN
+        val repo = AuthRepositoryImpl(db())
+        val usecase = LoginUseCase(repo)
+
+
+        // WHEN
+        val res = usecase("edgar_rod", "password")
+
+        // THEN
+        assertTrue(res.isFailure)
     }
 }

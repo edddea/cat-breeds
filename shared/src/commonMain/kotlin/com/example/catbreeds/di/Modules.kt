@@ -7,6 +7,7 @@ import com.example.catbreeds.data.remote.TheCatApi
 import com.example.catbreeds.data.repo.AuthRepositoryImpl
 import com.example.catbreeds.data.repo.BreedRepositoryImpl
 import com.example.catbreeds.data.repo.FavoritesRepositoryImpl
+import com.example.catbreeds.domain.definitions.Constants.CAT_API_KEY
 import com.example.catbreeds.domain.repo.AuthRepository
 import com.example.catbreeds.domain.repo.BreedRepository
 import com.example.catbreeds.domain.repo.FavoritesRepository
@@ -58,9 +59,7 @@ private val presentationModule = module {
 }
 
 private class EnvApiKeyProvider : ApiKeyProvider {
-    override fun apiKeyOrNull(): String? {
-        // Priority: JVM system prop > env var
-        return System.getProperty("CAT_API_KEY")
-            ?: System.getenv("live_3PSikL0XzT1l4D1v64AzhjndMLyw6EJcsN4HPoMMsV54mFNTCsgediRxBRIiv87F")
+    override fun apiKeyOrNull(): String {
+        return CAT_API_KEY
     }
 }

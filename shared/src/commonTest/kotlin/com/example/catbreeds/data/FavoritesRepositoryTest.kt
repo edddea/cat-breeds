@@ -3,7 +3,8 @@ package com.example.catbreeds.data
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.example.catbreeds.data.repo.FavoritesRepositoryImpl
 import com.example.catbreeds.db.CatDatabase
-import kotlin.test.Test
+import kotlinx.coroutines.test.runTest
+import org.junit.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -16,9 +17,11 @@ class FavoritesRepositoryTest {
     }
 
     @Test
-    fun `toggle favorite adds and removes`() = kotlinx.coroutines.test.runTest {
+    fun `toggle favorite adds and removes`() = runTest {
+        // GIVEN
         val repo = FavoritesRepositoryImpl(db())
 
+        // WHEN / THEN
         val added = repo.toggleFavorite("abys").getOrThrow()
         assertTrue(added)
 

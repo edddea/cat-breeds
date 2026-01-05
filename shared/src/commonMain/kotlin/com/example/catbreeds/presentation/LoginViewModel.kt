@@ -1,5 +1,6 @@
 package com.example.catbreeds.presentation
 
+import com.example.catbreeds.domain.definitions.Constants.NON_CREDENTIALS_ERROR_LABEL
 import com.example.catbreeds.domain.usecase.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -44,10 +45,17 @@ class LoginViewModel(
                     )
                 }
             }
+        } else {
+            _state.value =
+                _state.value.copy(isLoading = false, error = NON_CREDENTIALS_ERROR_LABEL)
         }
     }
 
     fun consumeSuccess() {
         _state.value = _state.value.copy(isSuccess = false)
+    }
+
+    fun onResetLoading() {
+        _state.value = _state.value.copy(isLoading = false)
     }
 }

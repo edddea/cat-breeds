@@ -27,7 +27,7 @@ class FavoritesRepositoryImpl(
     override suspend fun toggleFavorite(breedId: String): Result<Boolean> = runCatching {
         withContext(Dispatchers.Default) {
             val existsRow = db.catDatabaseQueries.isFavorite(breedId).executeAsOne()
-            //val exists = existsRow == 1L
+
             if (existsRow) {
                 db.catDatabaseQueries.removeFavorite(breedId)
                 false

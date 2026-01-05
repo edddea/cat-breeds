@@ -35,6 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.catbreeds.domain.definitions.Constants.CAT_ICON_LABEL
+import com.example.catbreeds.domain.definitions.Constants.LOAD_MORE_LABEL
+import com.example.catbreeds.domain.definitions.Constants.OFFLINE_LABEL
 import com.example.catbreeds.domain.model.Breed
 import com.example.catbreeds.presentation.BreedListViewModel
 import io.kamel.image.KamelImage
@@ -59,7 +62,7 @@ fun BreedListScreen(
             if (state.isOfflineBanner) {
                 AssistChip(
                     onClick = {},
-                    label = { Text("Offline / showing cached data") },
+                    label = { Text(OFFLINE_LABEL) },
                     modifier = Modifier.padding(12.dp)
                 )
             }
@@ -90,7 +93,7 @@ fun BreedListScreen(
                                 CircularProgressIndicator()
                             } else {
                                 OutlinedButton(onClick = { vm.loadNextPage() }) {
-                                    Text("Load more")
+                                    Text(LOAD_MORE_LABEL)
                                 }
                             }
                         }
@@ -155,7 +158,7 @@ private fun BreedAvatar(url: String?, isFavorite: Boolean) {
                 modifier = Modifier.fillMaxSize()
             )
         } else {
-            Text("🐱")
+            Text(CAT_ICON_LABEL)
         }
     }
 }

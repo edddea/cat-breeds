@@ -10,14 +10,16 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import kotlin.test.Test
+import org.junit.Test
 import kotlin.test.assertEquals
 
 class TheCatApiTest {
 
     @Test
-    fun `parses breeds response`() = kotlinx.coroutines.test.runTest {
+    fun `parses breeds response`() = runTest {
+        // GIVEN
         val engine = MockEngine { _ ->
             respond(
                 content = """[
@@ -34,11 +36,16 @@ class TheCatApiTest {
             }
         }
 
+
+        // WHEN
         val api = TheCatApi(client, object : ApiKeyProvider { override fun apiKeyOrNull(): String? = null })
         val breeds = api.getBreeds(page = 0, limit = 20)
 
+
+        // THEN
         assertEquals(1, breeds.size)
         assertEquals("abys", breeds.first().id)
         assertEquals("Abyssinian", breeds.first().name)
+        assertEquals("https://x/y.jpg", breeds.first().image?.url)
     }
 }
