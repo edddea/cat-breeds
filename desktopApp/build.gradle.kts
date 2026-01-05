@@ -26,6 +26,7 @@ compose.desktop {
         mainClass = "com.example.catbreeds.desktop.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            modules("java.sql", "java.naming")
             packageName = "CatBreeds"
             packageVersion = "1.0.0"
         }
